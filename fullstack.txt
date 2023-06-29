@@ -1,0 +1,38 @@
+
+1. tạo các folder: config, models, migrations, seeders
+npx sequelize-cli init
+
+
+
+2. tạo model, migration
+npx sequelize-cli model:generate --name User --attributes firstName:string,lastName:string,email:string
+
+trong đó: + Tạo file model user.js trong folder models
+	      + Tạo 1 file migration có tên XXXX-create-user.js trong folder migrations(XXX là thời gian tạo)
+
+
+
+3. tạo bảng trên db
+npx sequelize-cli db:migrate
+
+note: 	  + Tạo 1 bảng tên SequelizeMeta : ghi lại tất cả migration hiện tại
+	      + Tạo 1 bảng tên users với các cột đc chỉ định ở file user.js trong folder models
+
+npx sequelize-cli db:migrate:undo(hoàn tác quay lại migration gần nhất)
+npx sequelize-cli db:migrate:undo:all(hoàn tác lại tất cả migration)
+
+
+
+4. tạo seeders
+npx sequelize-cli seed:generate --name demo-user
+
+note:	  + Tạo 1 file seeder có tên XXXX-demo-user.js trong folder seeders(XXX là thời gian tạo)
+
+
+
+5. Tạo các record trên db qua seeders
+npx sequelize-cli db:seed:all
+
+npx sequelize-cli db:seed:undo(Hoàn tác seed gần đây nhất)
+npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data(Hoàn tác seed cụ thể)
+npx sequelize-cli db:seed:undo:all(Hoàn tác tất cả seed)
