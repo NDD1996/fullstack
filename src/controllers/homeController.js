@@ -18,7 +18,8 @@ let getCrud = (rep, res) => {
 }
 
 let postCrud = (req, res) => {
-    // console.log(req.body);
+
+    // mã hóa password ở file CRUDservice trong folder services
     CRUDservice.createNewUser(req.body);
     return res.send("post crud from sever");
 }
