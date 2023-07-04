@@ -17,11 +17,46 @@ let getCrud = (rep, res) => {
     return res.render("formCrud.ejs");
 }
 
-let postCrud = (req, res) => {
+//CREATE
+let postCrud = async (req, res) => {
 
     // mã hóa password ở file CRUDservice trong folder services
-    CRUDservice.createNewUser(req.body);
-    return res.send("post crud from sever");
+    await CRUDservice.createNewUser(req.body);
+    return res.redirect("/listCrud");
+}
+
+// READ
+let listCrud = async (req,res) => {
+    let data = await CRUDservice.getAllUser();
+    return res.render("listCrud.ejs", {
+        data: data
+    })
+}
+
+//INFO
+let getInfo = async (req,res) => {
+    let infoUser = await CRUDservice.getInfo(req.params.id);
+    return res.render("getInfo.ejs", {
+        infoUser
+    });
+}
+
+
+
+//UPDATE
+let updateCrud = async (req,res) => {
+    await CRUDservice.updateUser(req.body);
+    return res.redirect("/listCrud");
+}
+
+
+//DELETE
+let deleteUser = async (req,res) => {
+    let userId = req.params.id
+    await CRUDservice.deleteUser(userId);
+    return res.redirect("/listCrud");
+
+    
 }
 
 
@@ -33,4 +68,8 @@ export default {
     getHomePage,
     getCrud,
     postCrud,
+    listCrud,
+    getInfo,
+    updateCrud,
+    deleteUser
 }

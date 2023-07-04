@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>ListCrud</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        
+        <div class="container">
+        <h1>list Crud</h1>
+            <!-- <%= data %> -->
+        <table class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            
+            <% for(let i=0; i< data.length; i++) { %>
+            <tbody>
+            <tr class="info">
+                <td> <%= data[i].id %></td>
+                <td> <%= data[i].firstName %></td>
+                <td> <%= data[i].lastName %></td>
+                <td> <%= data[i].email %></td>
+                <td> <%= data[i].address %></td>
+                <td> <%= data[i].phonenumber %></td>
+                <td>
+                    <a href="./getInfo/<%= data[i].id %>">Edit</a>
+                    <a href="./deleteUser/<%= data[i].id %>">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+            <% } %>
+        </table>
+        </div>
+    </body>
+</html>
+

@@ -4,6 +4,7 @@ import bcrypt from  'bcryptjs';
 const salt = bcrypt.genSaltSync(10);
 
 
+//CREATE
 let createNewUser = (data) => {
     return new Promise(async(resolve,reject) => {
         try {
@@ -30,6 +31,7 @@ let createNewUser = (data) => {
     })
 }
 
+
 let hashUserPassword = (password) => {
     return new Promise((resolve, reject) => {
         try {
@@ -41,6 +43,80 @@ let hashUserPassword = (password) => {
     })
 }
 
+
+//READ
+let getAllUser = () => {
+    return new Promise( async (resolve,reject) => {
+        try {
+            let data = await db.user.findAll({
+                // raw: true
+            });
+            resolve(data);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+//INFO
+let getInfo = (userid) => {
+    return new Promise ( async (resolve, reject) => {
+        try {
+            let infoUser = await db.user.findOne({
+                where: {
+                    id: userid
+                }
+            })
+            resolve(infoUser);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+
+//UPDATE
+let updateUser = (user) => {
+    return new Promise ( async (resolve, reject) => {
+        try {
+            let updateUser = await db.user.update({
+                email: user.email,
+                firstName: user.firstname,
+                lastName: user.lastname,
+                address: user.address,
+                phonenumber: user.phonenumber,
+
+            },
+            { where: {id: user.id}
+        })
+            resolve(updateUser);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+
+let deleteUser = (userId) => {
+    return new Promise( async(resolve, reject) => {
+        try {
+            let user = await db.user.findOne({
+                where: {id: userId}
+            })
+            if(user) {
+                await user.destroy()
+            }
+            resolve();
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
 export default {
-    createNewUser
+    createNewUser,
+    getAllUser,
+    getInfo,
+    updateUser,
+    deleteUser
 };
